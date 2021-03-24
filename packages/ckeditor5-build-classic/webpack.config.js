@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-03-24 11:38:54
+ * @LastEditTime: 2021-03-24 15:23:24
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \ckeditor5_build_my\packages\ckeditor5-build-classic\webpack.config.js
+ */
 /**
  * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
@@ -48,8 +56,8 @@ module.exports = {
 		new CKEditorWebpackPlugin( {
 			// UI language. Language codes follow the https://en.wikipedia.org/wiki/ISO_639-1 format.
 			// When changing the built-in language, remember to also change it in the editor's configuration (src/ckeditor.js).
-			language: 'en',
-			additionalLanguages: 'all'
+			language: 'zh-cn',
+			additionalLanguages: [ 'en', 'zh', ]
 		} ),
 		new webpack.BannerPlugin( {
 			banner: bundler.getLicenseBanner(),
