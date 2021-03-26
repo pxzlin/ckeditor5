@@ -21,49 +21,50 @@ export default class VideoEditing extends Plugin {
 		const t = editor.t;
 		const conversion = editor.conversion;
 
-		editor.editing.view.addObserver( VideoLoadObserver );
+		editor.editing.view.addObserver(VideoLoadObserver);
 
 		// Configure schema.
-		schema.register( 'video', {
+		schema.register('video', {
 			isObject: true,
 			isBlock: true,
 			allowWhere: '$block',
-			allowAttributes: [ 'src' ]
-		} );
+			allowAttributes: ['src', 'controls']
+		});
 
-		conversion.for( 'dataDowncast' ).elementToElement( {
+		conversion.for('dataDowncast').elementToElement({
 			model: 'video',
-			view: ( modelElement, { writer } ) => createVideoViewElement( writer )
-		} );
+			view: (modelElement, { writer }) => createVideoViewElement(writer)
+		});
 
-		conversion.for( 'editingDowncast' ).elementToElement( {
+		conversion.for('editingDowncast').elementToElement({
 			model: 'video',
-			view: ( modelElement, { writer } ) => toVideoWidget( createVideoViewElement( writer ), writer, t( 'video widget' ) )
-		} );
+			view: (modelElement, { writer }) => toVideoWidget(createVideoViewElement(writer), writer, t('video widget'))
+		});
 
-		conversion.for( 'downcast' ).add( modelToViewAttributeConverter( 'src' ) );
+		conversion.for('downcast').add(modelToViewAttributeConverter('src'));
+		conversion.for('downcast').add(modelToViewAttributeConverter('controls'));
 
-		conversion.for( 'upcast' )
-			.elementToElement( {
+		conversion.for('upcast')
+			.elementToElement({
 				view: {
 					name: 'video',
 					attributes: {
 						src: true
 					}
 				},
-				model: ( viewVideo, { writer } ) => writer.createElement( 'video', { src: viewVideo.getAttribute( 'src' ) } )
-			} )
-			.add( viewFigureToModel() );
+				model: (viewVideo, { writer }) => writer.createElement('video', { src: viewVideo.getAttribute('src'), controls: 'controls', })
+			})
+			.add(viewFigureToModel());
 
-		editor.commands.add( 'videoInsert', new VideoInsertCommand( editor ) );
+		editor.commands.add('videoInsert', new VideoInsertCommand(editor));
 	}
 }
 
-export function createVideoViewElement( writer ) {
-	const emptyElement = writer.createEmptyElement( 'video' );
-	const figure = writer.createContainerElement( 'figure', { class: 'video' } );
+export function createVideoViewElement(writer) {
+	const emptyElement = writer.createEmptyElement('video');
+	const figure = writer.createContainerElement('figure', { class: 'video' });
 
-	writer.insert( writer.createPositionAt( figure, 0 ), emptyElement );
+	writer.insert(writer.createPositionAt(figure, 0), emptyElement);
 
 	return figure;
 }

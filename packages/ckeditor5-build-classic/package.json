@@ -55,6 +55,7 @@
     "@ckeditor/ckeditor5-remove-format": "^26.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^26.0.0",
     "@ckeditor/ckeditor5-word-count": "^26.0.0",
+    "@idonans/ckeditor5-video": "^23.1.1",
     "@visao/ckeditor5-video": "^23.1.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^4.0.1",

@@ -12,7 +12,7 @@ import {
 import Clipboard from "@ckeditor/ckeditor5-clipboard/src/clipboard";
 import UpcastWriter from "@ckeditor/ckeditor5-engine/src/view/upcastwriter";
 import env from "@ckeditor/ckeditor5-utils/src/env";
-import {getViewVideoFromWidget} from "../video/utils";
+import { getViewVideoFromWidget } from "../video/utils";
 
 const DEFAULT_VIDEO_EXTENSIONS = ['mp4', 'webm', 'ogg'];
 
@@ -83,7 +83,7 @@ export default class VideoUploadEditing extends Plugin {
 
                     // Upload videos after the selection has changed in order to ensure the command's state is refreshed.
                     editor.model.enqueueChange('default', () => {
-                        editor.execute('videoUpload', {file: videos});
+                        editor.execute('videoUpload', { file: videos });
                     });
                 }
             });
@@ -94,7 +94,7 @@ export default class VideoUploadEditing extends Plugin {
             const fetchableVideos = Array.from(editor.editing.view.createRangeIn(data.content))
                 .filter(value => isLocalVideo(value.item) && !value.item.getAttribute('uploadProcessed'))
                 .map(value => {
-                    return {promise: fetchLocalVideo(value.item), videoElement: value.item};
+                    return { promise: fetchLocalVideo(value.item), videoElement: value.item };
                 });
 
             if (!fetchableVideos.length) {
@@ -111,6 +111,7 @@ export default class VideoUploadEditing extends Plugin {
 
                 if (loader) {
                     writer.setAttribute('src', '', fetchableVideo.videoElement);
+                    writer.setAttribute('controls', 'controls', fetchableVideo.videoElement);
                     writer.setAttribute('uploadId', loader.id, fetchableVideo.videoElement);
                 }
             }
@@ -124,7 +125,7 @@ export default class VideoUploadEditing extends Plugin {
 
         // Upload placeholder videos that appeared in the model.
         doc.on('change', () => {
-            const changes = doc.differ.getChanges({includeChangesInGraveyard: true});
+            const changes = doc.differ.getChanges({ includeChangesInGraveyard: true });
 
             for (const entry of changes) {
                 if (entry.type === 'insert' && entry.name !== '$text') {
@@ -213,7 +214,7 @@ export default class VideoUploadEditing extends Plugin {
             })
             .then(data => {
                 model.enqueueChange('transparent', writer => {
-                    writer.setAttributes({uploadStatus: 'complete', src: data.default}, videoElement);
+                    writer.setAttributes({ uploadStatus: 'complete', src: data.default }, videoElement);
                 });
 
                 clean();
