@@ -100,6 +100,7 @@ function _showPlaceholder(placeholder, viewFigure, writer) {
     }
 
     writer.setAttribute('controls', 'controls', viewVideo);
+    writer.setAttribute('controlsList', 'nodownload', viewVideo);
 
     if (!_getUIElement(viewFigure, 'placeholder')) {
         writer.insert(writer.createPositionAfter(viewVideo), _createPlaceholder(writer));
@@ -178,5 +179,6 @@ function _displayLocalVideo(viewFigure, writer, loader) {
 
         writer.setAttribute('src', loader.data, viewVideo);
         writer.setAttribute('controls', 'controls', viewVideo);
+        writer.setAttribute('controlsList', 'nodownload', viewVideo);
     }
 }

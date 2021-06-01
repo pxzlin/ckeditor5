@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-03-26 11:30:23
+ * @LastEditTime: 2021-06-01 17:59:23
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \ckeditor5_build_my\packages\ckeditor5-build-classic\plugin\ckeditor5-video\src\video\videoediting.js
+ */
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import VideoLoadObserver from './videoloadobserver';
 
@@ -28,7 +36,7 @@ export default class VideoEditing extends Plugin {
 			isObject: true,
 			isBlock: true,
 			allowWhere: '$block',
-			allowAttributes: ['src', 'controls']
+			allowAttributes: ['src', 'controls', 'controlsList']
 		});
 
 		conversion.for('dataDowncast').elementToElement({
@@ -43,6 +51,7 @@ export default class VideoEditing extends Plugin {
 
 		conversion.for('downcast').add(modelToViewAttributeConverter('src'));
 		conversion.for('downcast').add(modelToViewAttributeConverter('controls'));
+		conversion.for('downcast').add(modelToViewAttributeConverter('controlsList'));
 
 		conversion.for('upcast')
 			.elementToElement({
@@ -52,7 +61,7 @@ export default class VideoEditing extends Plugin {
 						src: true
 					}
 				},
-				model: (viewVideo, { writer }) => writer.createElement('video', { src: viewVideo.getAttribute('src'), controls: 'controls', })
+				model: (viewVideo, { writer }) => writer.createElement('video', { src: viewVideo.getAttribute('src'), controls: 'controls', controlsList: 'nodownload' })
 			})
 			.add(viewFigureToModel());
 

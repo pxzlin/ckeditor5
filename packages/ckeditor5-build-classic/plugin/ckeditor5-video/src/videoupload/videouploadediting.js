@@ -112,6 +112,7 @@ export default class VideoUploadEditing extends Plugin {
                 if (loader) {
                     writer.setAttribute('src', '', fetchableVideo.videoElement);
                     writer.setAttribute('controls', 'controls', fetchableVideo.videoElement);
+                    writer.setAttribute('controlsList', 'nodownload', fetchableVideo.videoElement);
                     writer.setAttribute('uploadId', loader.id, fetchableVideo.videoElement);
                 }
             }
